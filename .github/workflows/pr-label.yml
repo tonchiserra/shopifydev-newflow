@@ -1,0 +1,64 @@
+name: Label based theme deployments
+
+on: 
+  pull_request:
+    types: [ labeled ]
+
+jobs:
+  deploy_qa_theme:
+    if: ${{ github.event.label.name == 'qa' }}
+    name: deploy to QA Shopify theme
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_THEMEKIT_PASSWORD }}
+      SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URI }}
+      SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_QA_THEME_ID }}
+      THEME_PATH: ${{ secrets.THEME_PATH }}
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: testing
+        run: |
+          echo "QA THEME DEPLOY TRIGGER EVENT"
+          echo "--------- Folder dir files:"
+          ls
+          npm run compile:prod --if-present
+      - uses: pgrimaud/action-shopify@master
+        with:
+          args: --ignored-file=config/settings_data.json --ignored-file=locales/* 
+
+  deploy_staging_theme:
+    if: ${{ github.event.label.name == 'staging' }}
+    name: deploy to Staging Shopify theme
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_THEMEKIT_PASSWORD }}
+      SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URI }}
+      SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_STAGING_THEME_ID }}
+      THEME_PATH: ${{ secrets.THEME_PATH }}
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: testing
+        run: |
+          echo "STAGING THEME DEPLOY TRIGGER EVENT"
+          echo "--------- Folder dir files:"
+          ls
+          npm run compile:prod --if-present
+      - uses: pgrimaud/action-shopify@master
+        with:
+          args: --ignored-file=config/settings_data.json --ignored-file=locales/*

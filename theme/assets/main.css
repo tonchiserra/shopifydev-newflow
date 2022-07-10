@@ -1,0 +1,117 @@
+.free-shipping-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 56, 56);
+}
+
+.free-shipping-text {
+  font-weight: bold;
+  color: #fff;
+}
+
+.quick-add__select {
+  border: 1px solid #000;
+  border-radius: 0;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1rem .5rem;
+  margin-bottom: 2rem;
+}
+
+.quick-add__select:hover {
+  outline: 1px solid #000;
+}
+
+.quick-add__options-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.main-carousel {
+  line-height: 0;
+}
+
+.carousel-cell {
+  width: 100%;
+}
+
+.cucardas-off-others {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.cucarda-off-other {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: rgb(252, 45, 45);
+  border: 2px solid rgb(252, 45, 45);
+  background-color: rgb(253, 206, 206);;
+  padding: 0 1rem;
+}
+
+.cucardas-free-shipping {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.cucarda-free-shipping {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: rgb(59, 143, 3);
+  border: 2px solid rgb(59, 143, 3);
+  background-color: rgb(212, 255, 184);
+  padding: 0 1rem;
+}
+
+.cucardas-cuotas-sin-intereses {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cucarda-cuotas-sin-interes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: rgb(143, 3, 120);
+  border: 2px solid rgb(143, 3, 120);
+  background-color: rgb(255, 181, 243);
+  padding: 0 1rem;
+}
+
+.product-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.img-container {
+  overflow: hidden;
+  width: 70px;
+  height: 70px;
+  border: 1px solid #c4c4c4;
+  cursor: pointer;
+}
+
+.img-container:hover {
+  border: 1px solid #000;
+}

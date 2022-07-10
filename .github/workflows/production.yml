@@ -1,0 +1,36 @@
+name: Deploy to Shopify store PRODUCTION theme
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_production_theme:
+    if: ${{ !contains(github.event.head_commit.message, 'no-deploy') }}
+    name: deploy to production Shopify theme
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_THEMEKIT_PASSWORD }}
+      SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URI }}
+      SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_PRODUCTION_THEME_ID }}
+      THEME_PATH: ${{ secrets.THEME_PATH }}
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: testing
+        run: |
+          echo "PRODUCTION THEME DEPLOY TRIGGER EVENT"
+          echo "--------- Folder dir files:"
+          ls
+          npm run compile:prod --if-present
+      - uses: pgrimaud/action-shopify@2.2.2
+        with:
+          args: --ignored-file=config/settings_data.json --ignored-file=locales/* 

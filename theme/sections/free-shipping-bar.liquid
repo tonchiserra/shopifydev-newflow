@@ -1,0 +1,43 @@
+{%- assign threshold = section.settings.free_shipping_threshold | times: 100 -%}
+{%- assign remaining = threshold | minus: cart.items_subtotal_price -%}
+{%- assign remaining_money = remaining | money -%}
+{%- assign valueText = section.settings.free_shipping_text | split: '*' -%}
+
+<div class="free-shipping-container">
+  <p>Este es un cambio</p>
+  <p id="free-shipping-text" class="free-shipping-text" data-threshold="{{ threshold }}">
+    {%- if remaining <= 0 -%}
+      {{ section.settings.free_shipping_enabled_message }}    
+    {%- else -%}    
+      {{ valueText | first }}
+      <span id="threshold">{{ remaining_money }}</span>
+      {{ valueText | last }}
+    {%- endif -%}
+  </p> 
+</div>
+
+{% schema %}
+{
+  "name": "Free Shipping Bar",
+  "settings": [
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "default": 500,
+      "label": "Free Shipping Threshold"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_text",
+      "default": "You need spend * more to get free shipping",
+      "label": "Free Shipping Text"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_enabled_message",
+      "default": "Congratulations you have free shipping",
+      "label": "Free Shipping Enabled Message"
+    }
+  ]
+}
+{% endschema %}
