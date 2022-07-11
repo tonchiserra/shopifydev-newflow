@@ -4,7 +4,6 @@
 {%- assign valueText = section.settings.free_shipping_text | split: '*' -%}
 
 <div class="free-shipping-container">
-  <p>Este es un cambio</p>
   <p id="free-shipping-text" class="free-shipping-text" data-threshold="{{ threshold }}">
     {%- if remaining <= 0 -%}
       {{ section.settings.free_shipping_enabled_message }}    
